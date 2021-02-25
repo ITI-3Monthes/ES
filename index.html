@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container{
+                background-color:#232F3E ;
+                display: flex;
+                color: white;
+                font-size: large;
+                padding: 5px;
+                
+            }
+            .child{
+                padding: 5px;
+                display: none;
+            }
+            .child:hover{
+                background-color: rgba(255, 0, 0, 0.842);
+                border-radius: 3px;
+            }
+            .content{
+                border: 1px black solid;
+                display: none;
+                font-size: large;
+            }
+            .aaa{
+                background-color: violet;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div onclick="displayContent(this)"  class="child">userName1</div>
+        </div>
+      
+<script>
+    var cln = document.querySelector(".child").cloneNode(true);
+    
+    var container = document.querySelector(".container").cloneNode(true);
+
+    document.querySelector(".child").remove();
+    function getClone(...arr){
+        var clones = [];
+            for(var i=0;i<arr.length;i++){
+                clones[i] =cln.cloneNode(true);
+                clones[i].innerHTML  = arr[i].name;
+               var att = document.createAttribute("data-id");
+               att.value = arr[i].id;
+               clones[i].setAttributeNode(att);
+                clones[i].style.display="block";
+            }
+          return  clones;
+    }
+  
+    var res = fetch("https://jsonplaceholder.typicode.com/users");
+    console.log(res);
+   
+    res.then(data=>{
+        console.log(data);
+       return data.json();
+         // my data = 
+    }).then(data=>{
+        console.log(data);
+        console.log(getClone(...data))
+        getpost(data[0].id);
+        for(i of getClone(...data)){
+
+            document.querySelector(".container").appendChild(i);
+        }
+       
+    })
+
+    
+    function displayContent(obj){
+       id = obj.getAttribute("data-id");
+        getpost(id);
+        
+    }
+    async function getpost(id){
+        
+        var res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
+            console.log(res);
+            var user = await res.json();
+            displayTitles(...user);
+    }
+
+    function displayTitles(...arr){
+        var exist = document.querySelector(".content");
+        if(exist ) exist.remove();
+        
+        clone = document.createElement("div");
+        clone.classList.add("content");
+        clone.style.display="block";
+        document.body.appendChild(clone);
+        // content.removeChild();
+        var tList = document.createElement("ol");
+        for(i of arr){
+            // console.log(i)
+           var el = document.createElement("li");
+           el.innerHTML = i.title;
+            tList.appendChild(el);
+        }
+        clone.appendChild(tList);
+    }
+
+</script>
+    </body>
+</html>
