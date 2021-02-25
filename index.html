@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+<script>
+    //q1
+//     var x = 5;
+// var y = 10;
+// console.log(x+" "+y);
+// var [x,y]= [y,x]
+// console.log(x+" "+y);
+
+//q2
+// var arr = [5,10,20,50,30,100];
+// function minAndMax(...arr){
+//     var max =Math.max(...arr);
+//     var min = Math.min(...arr);
+//    var val = arr.filter(el=>{
+//         if(el==max || el==min)return el;
+//     })
+//     return val
+//     }
+
+// var myreturn = minAndMax(...arr);
+// console.log("Max and Min = "+myreturn[0],myreturn[1]);
+
+// //q3
+var fruits =["strawberry","ba", "banana", "orange",
+"mango"]
+// to return first false it meet then out
+var ev = fruits.every(el=> typeof el =="string");
+// to return an array of conditions
+var test = fruits.map(el=>{
+   if(typeof el == "string") return true;
+    else return false;
+} );
+console.log(test);
+// to return the first that met condition
+var test_a = fruits.find(
+    el=>
+    { if(typeof el == "string"){
+        if(el.startsWith("a")) return true;
+    }
+    });
+
+    //  to check that at least one met the condition 
+    var testChar = fruits.some(el=>el.startsWith("a"));
+
+    var newArray = fruits.map(el=> `i like ${el}`)
+    for (i of newArray) console.log(i)
+    ///////////////////
+
+ 
+</script>
+    </body>
+
+</html>
